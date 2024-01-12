@@ -30,7 +30,9 @@ const Navbar = () => {
     <nav className="navbar navbar-expand-lg pt-3 ">
       <div className="container">
         <Link to='/' className="navbar-brand">
-          MediMeet
+          <img src="src\assets\logo.png" height={30} alt="" />
+          <span className='ps-2'>MediMeet</span>
+          
         </Link>
         <button
           className="navbar-toggler"
