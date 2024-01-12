@@ -1,0 +1,48 @@
+.details {
+  background-color: #f3f6f8;
+  color: #23313d;
+
+  font-family: "Poppins", sans-serif;
+  font-size: 12px;
+}
+.navbg {
+  border-radius: 5px;
+  background-color: white;
+}
+
+.basic-details {
+  border-radius: 4px;
+  background-color: #f3f6f8;
+  border: 1px solid rgb(213, 213, 213);
+}
+.form-control {
+  font-size: 12px;
+}
+
+.additional-details {
+  border-radius: 4px;
+
+  background-color: #f3f6f8;
+  border: 1px solid rgb(213, 213, 213);
+}
+.form-control{
+    border: 1px solid  #f3f6f8;
+
+}
+.form-control:focus{
+    border: 1px solid #2DBEA4;
+    box-shadow: none;
+}
+.btn-submit{
+    border-radius: 0px;
+    color: white;
+    background-color:  #2DBEA4;
+    border: 2px solid #2DBEA4;
+  }
+  
+  .btn-submit:hover{
+    color: #23313D;
+    border-radius: 0px;
+    border: 2px solid #2DBEA4;
+   
+  }

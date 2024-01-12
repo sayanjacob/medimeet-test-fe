@@ -1,0 +1,21 @@
+.navbar{
+  font-family: 'Poppins', sans-serif; 
+  font-weight: 500;
+  background-color: transparent;
+  color:#2DBEA4;
+
+}
+
+.navbar-brand{
+  color: #23313D;
+}
+.btn-home{
+  color: #23313D;
+  border-radius: 0px;
+  border: 2px solid #2DBEA4
+}
+
+.btn-home:hover{
+  color: white;
+  background-color:  #2DBEA4;
+}
