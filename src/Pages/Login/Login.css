@@ -1,27 +1,27 @@
-.login{
-    font-family: 'Poppins', sans-serif; 
-    font-weight: 500;
-    
-
+.login {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
 }
-.input-field{
-    border: 1px solid black;
-    box-shadow: none;
-    border-radius: 0px;
+.input-field {
+  border: 1px solid black;
+  box-shadow: none;
+  border-radius: 0px;
 }
-.input-field:focus{
-    border: 1px solid rgb(37, 37, 37);
-    box-shadow: none;
-    border-radius: 0px;
+.input-field:focus {
+  border: 1px solid rgb(37, 37, 37);
+  box-shadow: none;
+  border-radius: 0px;
 }
 
-.btn-login{
-    color: rgb(0, 0, 0);
-    border-radius: 0px;
-    border: 1px solid rgb(0, 0, 0)
-  }
-  
-  .btn-login:hover{
-    color: #ffffff;
-    background-color: rgb(0, 0, 0);
-  }
+.btn-login {
+  border-radius: 0px;
+  border: 2px solid #2dbea4;
+
+  color: white;
+  background-color: #2dbea4;
+}
+
+.btn-login:hover {
+  color: #23313d;
+  border: 2px solid #2dbea4;
+}

@@ -24,7 +24,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 
         <Route path="/booking" element={<Booking />} />
 
-        <Route path="/patientinfo" element={<PatientInfo />} />
+        <Route path="/patientinfo/:doctorId" element={<PatientInfo />} />
         <Route path="/paymentform"
           element={<Elements stripe={stripePromise}><PaymentForm /></Elements>}
         />

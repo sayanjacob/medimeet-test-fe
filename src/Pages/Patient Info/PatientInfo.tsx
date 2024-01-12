@@ -1,11 +1,15 @@
 // Import the necessary dependencies
-import { useState, useEffect } from 'react';
+import { useState, useEffect, SetStateAction } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate, useParams } from 'react-router-dom'; // Import useNavigate
 import './patientinfo.css';
 import Navbar from '../../Components/Nav/Navbar';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const PatientInfo = () => {
+    const [selectedDate, setSelectedDate] = useState(new Date());
+
     const [patientName, setPatientName] = useState('');
     const [appointmentTime, setAppointmentTime] = useState('');
     const [age, setAge] = useState('');
@@ -20,21 +24,27 @@ const PatientInfo = () => {
     const [height, setHeight] = useState('');
     const [weight, setWeight] = useState('');
     const navigate = useNavigate();
+    const { doctorId } = useParams();
+    const [selectedDoctor, setSelectedDoctor] = useState([]);
 
     useEffect(() => {
-        // Fetch the list of doctors when the component mounts
         const fetchDoctors = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/doctorsn');
-                const doctors = response.data; // Assuming the response is an array of doctors
-                setDoctorList(doctors);
+                const response = await axios.get('http://localhost:5000/all-doctors');
+                const doctors = response.data.doctors; // Assuming the response is an array of doctors
+                doctors.forEach((doc) => {
+                    if (parseInt(doc.doctor_id) === parseInt(doctorId)) {
+                        setSelectedDoctor(doc);
+                    }
+                });
             } catch (error) {
                 console.error('Error fetching doctors:', error);
             }
         };
-
         fetchDoctors();
-    }, []);
+    }, [doctorId]);
+
+
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
@@ -56,12 +66,67 @@ const PatientInfo = () => {
             // Handle error, e.g., show an error message to the user
         }
     };
+    useEffect(() => {
+
+
+        const currentDate = new Date();
+        const formattedTime = formatDateTime(currentDate);
+        setAppointmentTime(formattedTime);
+    }, []);
+    const formatDateTime = (date) => {
+        const options = {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+        };
+        return date.toLocaleDateString(undefined, options);
+    };
+
+    const handleDateChange = (date) => {
+        if (date) {
+            setSelectedDate(date)
+            const formattedTime = formatDateTime(date);
+            console.log(formatDateTime)
+            setAppointmentTime(formattedTime);
+        }
+    };
+
+
+
 
     return (
         <div className='details' >
             <div className='navbg '>
                 <Navbar />
             </div>
+            <div className="doc m-0 p-0 py-2">
+                <div className="row my-1 d-flex flex-row justify-content-start ">
+                    <div className="col-2 ">
+                        image
+                    </div>
+                    <div className="col-4 m-auto ">
+                        <p className="doctor-name p-0 m-0">{selectedDoctor.name}</p>
+                        <p className="doctor-details p-0 m-0">{selectedDoctor.specialized_category}</p>
+                        <p className="doctor-details">{`Price: ${selectedDoctor.price}`}</p>
+                    </div>
+                    <div className="col-4">
+                        
+                        {appointmentTime}
+                    </div>
+                </div>
+
+            </div>
+            <DatePicker
+                 
+                    selected={selectedDate}
+                    onChange={handleDateChange}
+                    showTimeSelect
+                    dateFormat="dd/MM/yyyy hh:mm aa"
+                    className='form-control custom-date-picker'
+                />
 
 
             <div className="container-fluid m-auto px-5 pt-2 pb-2">
@@ -71,14 +136,11 @@ const PatientInfo = () => {
                         Save
                     </button>)}
                 </div>
-
+                
                 <form onSubmit={handleFormSubmit}>
 
                     <div className='basic-details m-0 p-0 px-3 py-3 my-1'>
-                        <label>
-                            Appointment Time:
-                            <input type="datetime-local" value={appointmentTime} onChange={(e) => setAppointmentTime(e.target.value)} required />
-                        </label>
+
                         <h5>Basic Details</h5>
                         <div className="row m-0 p-0 py-2 my-1">
                             <div className="col-md-8 form-group">

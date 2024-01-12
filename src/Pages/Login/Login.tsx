@@ -51,7 +51,7 @@ const Login = () => {
     return (
         <div className="container-fluid row login">
             <div className="col-6 px-5 m-auto">
-                <h1 className="login-heading">Login</h1>
+                <h3 className="login-heading">Login</h3>
                 <form className="login-form">
                     <div className="form-group my-1">
                         <label htmlFor="email" className="label">Email:</label>
@@ -74,9 +74,11 @@ const Login = () => {
                 </form>
             </div>
             <div className="col-6">
-                image
+                {/* Include your image here */}
+                <img src="path/to/your/image.jpg" alt="User" className="img-fluid" />
             </div>
         </div>
+
 
 
 

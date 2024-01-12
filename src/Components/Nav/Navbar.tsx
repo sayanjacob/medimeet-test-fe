@@ -21,6 +21,7 @@ const Navbar = () => {
   const handleLogout = () => {
     const response = axios.post("http://127.0.0.1:5000/logout")
     sessionStorage.removeItem('user')
+    setUser('')
     navigate('/')
 
   }
