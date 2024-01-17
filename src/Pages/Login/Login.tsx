@@ -3,9 +3,10 @@ import { useNavigate } from "react-router-dom";
 import "./login.css";
 import { useState } from "react";
 import Navbar from "../../Components/Nav/Navbar";
+import axios from "axios";
 
 const Login = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState('')
+    const [errorlogin, setErrorLogin] = useState('')
 
     const [formData, setFormData] = useState({
         email: "",
@@ -21,41 +22,43 @@ const Login = () => {
 
     const handleLogin = async () => {
         try {
-            const response = await fetch("http://127.0.0.1:5000/login", {
-                method: "POST",
+            const response = await axios.post("http://127.0.0.1:5000/login", formData, {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(formData),
             });
-            console.log(response)
-
-
-            if (response.ok) {
+            if (response.status === 200) {
                 // Redirect to the main homepage based on user type
-                const { user_type } = formData;
+                // const { user_type } = formData;
+                const user_type = response.data.user_type
                 if (user_type === "patient") {
-                    sessionStorage.setItem('user', "username");
+                    sessionStorage.setItem('user', response.data.user_name);
+                    sessionStorage.setItem('type', user_type);
+
                     navigate("/booking");
                 } else if (user_type === "doctor") {
+                    sessionStorage.setItem('user', response.data.user_name);
+                    sessionStorage.setItem('type', user_type);
                     navigate("/doctorhome");
                 }
             } else {
+                setErrorLogin("Invalid Login Credentials")
                 // Handle errors
                 console.error("Login failed");
             }
         } catch (error) {
+            setErrorLogin("Invalid Login Credentials")
             console.error("Error during login:", error);
         }
     };
     return (
-        <div className="container-fluid row login">
+        <div className="container row login my-5 py-5 mx-5">
             <div className="col-6 px-5 m-auto">
                 <h3 className="login-heading">Login</h3>
                 <form className="login-form">
                     <div className="form-group my-1">
                         <label htmlFor="email" className="label">Email:</label>
-                        <input placeholder="Email" type="email" id="email" name="email" className="form-control input-field" onChange={handleChange} />
+                        <input type="email" id="email" name="email" className="form-control input-field" onChange={handleChange} />
                     </div>
                     <div className="form-group my-1">
                         <label htmlFor="password" className="label">Password:</label>
@@ -68,14 +71,17 @@ const Login = () => {
                             <option value="doctor">Doctor</option>
                         </select>
                     </div>
+                    <div className="">
+                       <p style={{fontSize:'10px',color:'red',fontWeight:'300'}}>{errorlogin}</p> 
+                    </div>
                     <button type="button" className="btn btn-login" onClick={handleLogin}>
                         Login
                     </button>
                 </form>
             </div>
-            <div className="col-6">
-                {/* Include your image here */}
-                <img src="path/to/your/image.jpg" alt="User" className="img-fluid" />
+            <div className="col-6 bg-light">
+                {/* <img src="path/to/your/image.jpg" alt="" className="img-fluid" /> */}
+                image placeholder
             </div>
         </div>
 

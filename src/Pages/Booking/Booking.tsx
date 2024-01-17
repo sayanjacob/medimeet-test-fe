@@ -1,11 +1,12 @@
 import Navbar from "../../Components/Nav/Navbar";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, SetStateAction } from 'react';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 import { useNavigate } from 'react-router-dom';
 import './Booking.css'
+import VideoChat from "../Video Chat/VideoChat";
 
 const Booking = () => {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ const Booking = () => {
   const fetchDoctors = async (endpoint: string) => {
     try {
       const response = await axios.get(endpoint);
-      const doctorsData = response.data.doctors;
+      const doctorsData = response.data;
       const doctorsArray = Array.isArray(doctorsData) ? doctorsData : [];
       setDoctors(doctorsArray);
     } catch (error) {
@@ -53,13 +54,13 @@ const Booking = () => {
     }
   };
 
-  const handleSelectDate = (date) => {
+  const handleSelectDate = (date: SetStateAction<Date>) => {
     setSelectedDate(date);
   };
 
   const handleBookAppointment = (doctorId) => {
     // Redirect to the patient info page with the doctor ID
-    navigate(`/patientinfo/${doctorId}`);
+    navigate(`/patientinfo?doctorId=${doctorId}`);
   };
 
 
@@ -67,9 +68,11 @@ const Booking = () => {
     <div className="container-fluid m-auto">
       <Navbar />
       <div className="doctor-list-container">
-        <div className="row py-4 m-0">
+        <div className="row pt-4 m-0">
+          
           <h2 className="doctor-list-title">Take Appointment Seamlessly</h2>
         </div>
+
         <div className="col px-5 ">
           <div className="row justify-content-center search-dropdown py-1">
             <div className="col-4 ">

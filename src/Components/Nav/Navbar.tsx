@@ -6,18 +6,23 @@ import axios from 'axios';
 const Navbar = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState('')
+  const [type, setType] = useState('')
+
   const handleRegisterClick = () => {
     navigate('/signup');
   };
   useEffect(() => {
-    const userr = sessionStorage.getItem('user');
-    setUser(userr)
+    setUser(sessionStorage.getItem('user'))
+    setType(sessionStorage.getItem('type'))
   }, [])
 
   const handleLoginClick = () => {
     navigate('/login');
 
   };
+  const handleVideoConnect = () => {
+    navigate('/videoConnect')
+  }
   const handleLogout = () => {
     const response = axios.post("http://127.0.0.1:5000/logout")
     sessionStorage.removeItem('user')
@@ -32,7 +37,7 @@ const Navbar = () => {
         <Link to='/' className="navbar-brand">
           <img src="src\assets\logo.png" height={30} alt="" />
           <span className='ps-2'>MediMeet</span>
-          
+
         </Link>
         <button
           className="navbar-toggler"
@@ -60,9 +65,24 @@ const Navbar = () => {
           </ul>)}
           {user && (<>
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+              { type === 'doctor' 
+
+              ? (<li className="nav-item p-0 m-0 " onClick={handleVideoConnect}>
+                <p className='text-dark m-auto mx-2 pe-1 py-2'> <img src="src\assets\video-call.png" width={25} alt="" /><span className="ps-2">Connect With Patient</span></p>
+              </li>) 
+
+              : (<li className="nav-item p-0 m-0 " onClick={handleVideoConnect}>
+                <p className='text-dark m-auto mx-2 pe-1 py-2'> <img src="src\assets\video-call.png" width={25} alt="" /><span className="ps-2">Connect With Doctor</span></p>
+              </li>)}
+
+              <li className="nav-item p-0 m-0">
+                <p className='text-dark m-auto mx-2 pe-1 '> <img src="src\assets\user.png" width={40} alt="" /> <span className='pe-1'>{user}</span> </p>
+              </li>
               <li className="nav-item">
                 <button onClick={handleLogout} className='btn btn-home'>logout</button>
               </li>
+
+
             </ul>
           </>)}
         </div>

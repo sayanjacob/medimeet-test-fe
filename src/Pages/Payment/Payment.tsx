@@ -75,7 +75,7 @@ const PaymentForm = () => {
                     />
                     <h2>
                         {paymentDetails.status === "succeeded"
-                            ? "Payment Successful!"
+                            ? "Appointment Booked Successfully!"
                             : "Payment Failed"}
                     </h2>
                     <p className='payment-method'>Payment ID: {paymentDetails.id}</p>

@@ -1,6 +1,9 @@
 .login {
   font-family: "Poppins", sans-serif;
   font-weight: 500;
+  background-color: #f3f6f8;
+  border-radius: 10px;
+
 }
 .input-field {
   border: 1px solid black;

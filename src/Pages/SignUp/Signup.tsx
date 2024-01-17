@@ -38,7 +38,7 @@ const Signup = () => {
     };
 
     return (
-        <div className="container-fluid row signup pt-3">
+        <div className="container row signup m-auto my-5 py-5 ">
             <div className="col-lg-6 px-5 py-4  m-auto">
                 <h2 className="signup-heading">Signup</h2>
                 <form className="signup-form">
@@ -68,9 +68,10 @@ const Signup = () => {
                     </button>
                 </form>
             </div>
-            <div className="col-lg-6 col-md-4 col-sm-0 col-sm-none">
+            <div className="col-lg-6 col-md-4 col-sm-0 col-sm-none bg-light">
                 {/* Include your image here */}
-                <img src="path/to/your/image.jpg" alt="User" className="img-fluid" />
+                {/* <img src="path/to/your/image.jpg" alt="User" className="img-fluid" /> */}
+                image placeholder
             </div>
         </div>
 
